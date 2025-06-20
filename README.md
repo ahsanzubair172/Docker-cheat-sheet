@@ -28,7 +28,9 @@ Visit the live site at [https://ahsanzubair172.github.io/Docker-cheat-sheet/](ht
 Explore the interactive tables for quick reference.Click the "Download PNG" button to save the cheat sheet as an image.
 
 # Clone or fork this repository to customize or contribute:
+
 **bash**
+
 `   git clone https://github.com/ahsanzubair172/Docker-cheat-sheet.git   `
 
 Installation

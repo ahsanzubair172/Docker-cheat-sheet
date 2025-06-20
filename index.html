@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Commands -- Cheat Sheet</title>
+    <meta property="og:title" content="Docker Commands Cheat Sheet by Ahsan" />
+    <meta property="og:description" content="A professional Docker commands reference guide and cheat sheet by Ahsan. Essential for modern development workflows." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.linkedin.com/in/ahsan-cs/" />
+    <meta property="og:image" content="https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico" />
+    <link rel="icon" href="https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico" type="image/x-icon" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --dark-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --accent-blue: #0066cc;
+            --accent-purple: #6366f1;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --surface: #ffffff;
+            --surface-elevated: #f7fafc;
+            --border-light: #e2e8f0;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--primary-gradient);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        
+        .cheat-sheet {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--surface);
+            border-radius: 24px;
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header {
+            background: var(--dark-gradient);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255,255,255,0.06) 0%, transparent 50%);
+        }
+        
+        .docker-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #0db7ed, #00a0d6);
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            padding: 3rem 2rem;
+            background: linear-gradient(to bottom, var(--surface) 0%, var(--surface-elevated) 100%);
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+            border-radius: 1px;
+        }
+        
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .command-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .command-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-purple));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .command-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--accent-blue);
+        }
+        
+        .command-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .command {
+            font-family: 'JetBrains Mono', 'Monaco', 'Consolas', monospace;
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: #e2e8f0;
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            word-break: break-all;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .command::before {
+            content: '$';
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+        
+        .command-text {
+            margin-left: 1rem;
+        }
+        
+        .description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        
+        .example {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+            padding: 0.5rem 0.75rem;
+            background: var(--surface-elevated);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-purple);
+        }
+        
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem;
+            background: var(--surface-elevated);
+            border-top: 1px solid var(--border-light);
+            margin-top: 2rem;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        
+        .download-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .footer {
+            background: var(--text-primary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.875rem;
+            font-weight: 400;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+            
+            .commands-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                padding: 2rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .content {
+                padding: 2rem 1rem;
+            }
+            
+            .stats-bar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .download-btn {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+        
+        /* Smooth animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .command-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .command-card:nth-child(1) { animation-delay: 0.1s; }
+        .command-card:nth-child(2) { animation-delay: 0.2s; }
+        .command-card:nth-child(3) { animation-delay: 0.3s; }
+        .command-card:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <div class="cheat-sheet" id="cheatSheet">
+        <div class="header">
+            <div class="docker-logo">🐳</div>
+            <h1>Docker Commands Cheat Sheet</h1>
+            <p>by <strong>Ahsan</strong> &mdash; <a href="https://www.linkedin.com/in/ahsan-cs/" target="_blank" style="color:#fff;text-decoration:underline;font-weight:600;">Connect on LinkedIn</a></p>
+            <p>Docker Commands Reference Guide for Modern Development Workflows</p>
+        </div>
+        
+        <div class="content">
+            <!-- Container Management -->
+            <div class="section">
+                <h2 class="section-title">
+                    <div class="section-icon">📦</div>
+                    Container Management
+                </h2>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker run -d -t container_id</span></div>
+                        <div class="description">Run a container in detached mode with a pseudo-TTY</div>
+                        <div class="example">Launches container in background with terminal access</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker run --rm image_name</span></div>
+                        <div class="description">Automatically remove the container when it stops</div>
+                        <div class="example">Perfect for temporary containers and testing</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker run -v $HOSTDIR:$DOCKERDIR</span></div>
+                        <div class="description">Map a host directory to a container directory</div>
+                        <div class="example">Enables persistent data storage and file sharing</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker rm -v container_name</span></div>
+                        <div class="description">Remove a container and its associated volumes</div>
+                        <div class="example">Clean removal including all mounted volumes</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker start container_name</span></div>
+                        <div class="description">Start a stopped container</div>
+                        <div class="example">Resume a previously created container</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker stop container_name</span></div>
+                        <div class="description">Gracefully stop a running container</div>
+                        <div class="example">Sends SIGTERM then SIGKILL after timeout</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker restart container_name</span></div>
+                        <div class="description">Restart a container (stop then start)</div>
+                        <div class="example">Useful for applying configuration changes</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker pause container_name</span></div>
+                        <div class="description">Pause all processes in a running container</div>
+                        <div class="example">Temporarily freeze container execution</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Container Operations -->
+            <div class="section">
+                <h2 class="section-title">
+                    <div class="section-icon">⚙️</div>
+                    Container Operations
+                </h2>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker unpause container_name</span></div>
+                        <div class="description">Resume all processes in a paused container</div>
+                        <div class="example">Restore normal container execution</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker kill container_name</span></div>
+                        <div class="description">Send a SIGKILL signal to terminate container</div>
+                        <div class="example">Force immediate container termination</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker attach container_name</span></div>
+                        <div class="description">Attach to a running container's STDOUT/STDERR</div>
+                        <div class="example">Connect to container's main process output</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker exec -it container_name bash</span></div>
+                        <div class="description">Execute an interactive command in running container</div>
+                        <div class="example">Open interactive bash shell in container</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker commit container_name new_image</span></div>
+                        <div class="description">Create a new image from container's changes</div>
+                        <div class="example">Save container state as reusable image</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker logs -f container_name</span></div>
+                        <div class="description">Display and follow container logs in real-time</div>
+                        <div class="example">Monitor container output continuously</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker inspect container_name</span></div>
+                        <div class="description">Display detailed container configuration</div>
+                        <div class="example">View complete container metadata and settings</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker ps -a</span></div>
+                        <div class="description">List all containers (running and stopped)</div>
+                        <div class="example">Complete container inventory with status</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Management -->
+            <div class="section">
+                <h2 class="section-title">
+                    <div class="section-icon">🖼️</div>
+                    Image Management
+                </h2>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker build -t myapp:1.0 .</span></div>
+                        <div class="description">Build an image from Dockerfile with tag</div>
+                        <div class="example">Create versioned image from current directory</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker images</span></div>
+                        <div class="description">List all locally stored Docker images</div>
+                        <div class="example">View image repository, tags, and sizes</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker rmi alpine:3.4</span></div>
+                        <div class="description">Remove specified image from local storage</div>
+                        <div class="example">Free up disk space by removing unused images</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker pull nginx:latest</span></div>
+                        <div class="description">Download image from Docker registry</div>
+                        <div class="example">Fetch latest version from Docker Hub</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker push myapp:1.0</span></div>
+                        <div class="description">Upload image to configured registry</div>
+                        <div class="example">Share image with team or deploy to production</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker tag myapp:1.0 myapp:latest</span></div>
+                        <div class="description">Create alias tag for existing image</div>
+                        <div class="example">Mark current version as latest release</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Docker Compose -->
+            <div class="section">
+                <h2 class="section-title">
+                    <div class="section-icon">🔧</div>
+                    Docker Compose
+                </h2>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker-compose up -d</span></div>
+                        <div class="description">Start multi-container application in background</div>
+                        <div class="example">Launch entire application stack from YAML definition</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker-compose down</span></div>
+                        <div class="description">Stop and remove all services and networks</div>
+                        <div class="example">Clean shutdown of complete application stack</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker-compose build --no-cache</span></div>
+                        <div class="description">Rebuild all services from scratch</div>
+                        <div class="example">Force fresh build ignoring Docker cache</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker-compose logs -f service_name</span></div>
+                        <div class="description">Stream logs from specific service</div>
+                        <div class="example">Monitor real-time output from individual service</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Volume & Network Management -->
+            <div class="section">
+                <h2 class="section-title">
+                    <div class="section-icon">💾</div>
+                    Volume & Network Management
+                </h2>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker volume create mydata</span></div>
+                        <div class="description">Create a named volume for persistent storage</div>
+                        <div class="example">Establish reusable data storage location</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker volume ls</span></div>
+                        <div class="description">List all available Docker volumes</div>
+                        <div class="example">View all persistent storage volumes</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker network create --driver bridge mynet</span></div>
+                        <div class="description">Create custom bridge network</div>
+                        <div class="example">Establish isolated communication network</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker network ls</span></div>
+                        <div class="description">Display all Docker networks</div>
+                        <div class="example">View available network configurations</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Commands -->
+            <div class="section">
+                <h2 class="section-title">
+                    <div class="section-icon">🖥️</div>
+                    System Commands
+                </h2>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker system prune -a</span></div>
+                        <div class="description">Remove all unused containers, networks, and images</div>
+                        <div class="example">Comprehensive cleanup to reclaim disk space</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker info</span></div>
+                        <div class="description">Display comprehensive Docker system information</div>
+                        <div class="example">View daemon status, storage driver, and statistics</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker version</span></div>
+                        <div class="description">Show Docker client and server version details</div>
+                        <div class="example">Verify Docker installation and compatibility</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command"><span class="command-text">docker events --since 1h</span></div>
+                        <div class="description">Monitor Docker events from last hour</div>
+                        <div class="example">Track container lifecycle and system events</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats-bar">
+            <div class="stat">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Essential Commands</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">6</span>
+                <span class="stat-label">Command Categories</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">2025</span>
+                <span class="stat-label">Updated Guide</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Professional Docker Commands Reference © 2025 | Essential commands for modern containerization workflows</p>
+            <p>Created by <strong>Ahsan</strong> &mdash; <a href="https://www.linkedin.com/in/ahsan-cs/" target="_blank" style="color:#fff;text-decoration:underline;font-weight:600;">View LinkedIn Profile</a></p>
+        </div>
+    </div>
+
+    <button class="download-btn" onclick="downloadAsImage()">
+        <span>📥</span>
+        <span>Download PNG</span>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        function downloadAsImage() {
+            const element = document.getElementById('cheatSheet');
+            const downloadBtn = document.querySelector('.download-btn');
+            
+            // Hide download button temporarily
+            downloadBtn.style.display = 'none';
+            
+            // Add a loading state
+            const originalText = downloadBtn.innerHTML;
+            downloadBtn.innerHTML = '<span>⏳</span><span>Generating...</span>';
+            downloadBtn.style.display = 'flex';
+            
+            // Wait a moment for the button to hide
+            setTimeout(() => {
+                downloadBtn.style.display = 'none';
+                
+                html2canvas(element, {
+                    backgroundColor: null,
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true,
+                    width: element.scrollWidth,
+                    height: element.scrollHeight,
+                    logging: false,
+                    imageTimeout: 0,
+                    removeContainer: true
+                }).then(canvas => {
+                    // Create download link
+                    const link = document.createElement('a');
+                    link.download = 'docker-commands-professional-cheat-sheet.png';
+                    link.href = canvas.toDataURL('image/png', 1.0);
+                    
+                    // Trigger download
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    // Restore download button
+                    downloadBtn.innerHTML = originalText;
+                    downloadBtn.style.display = 'flex';
+                }).catch(error => {
+                    console.error('Error generating image:', error);
+                    downloadBtn.innerHTML = originalText;
+                    downloadBtn.style.display = 'flex';
+                    alert('Error generating image. Please try again or use your browser\'s print function.');
+                });
+            }, 100);
+        }
+        
+        // Add smooth scroll behavior
+        document.documentElement.style.scrollBehavior = 'smooth';
+        
+        // Add intersection observer for animation timing
+        const observeCards = () => {
+            const cards = document.querySelectorAll('.command-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            });
+            
+            cards.forEach(card => {
+                card.style.animationPlayState = 'paused';
+                observer.observe(card);
+            });
+        };
+        
+        // Initialize observers when page loads
+        document.addEventListener('DOMContentLoaded', observeCards);
+    </script>
+</body>
+</html>

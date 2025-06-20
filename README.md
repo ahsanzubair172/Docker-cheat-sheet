@@ -6,7 +6,8 @@ A modern, visually appealing Docker commands cheat sheet covering containers, im
 Overview
 --------
 
-This repository hosts a Docker Command Cheat Sheet deployed via GitHub Pages. The cheat sheet is designed as an interactive web page using Chart.js, providing an easy-to-read reference for common Docker commands.Access the live site at: [Docker Cheat Sheet](https://ahsanzubair172.github.io/Docker-cheat-sheet/)
+This repository hosts a Docker Command Cheat Sheet deployed via GitHub Pages. The cheat sheet is designed as an interactive web page using HTML, providing an easy-to-read reference for common Docker commands.
+Access the live site at: [Docker Cheat Sheet](https://ahsanzubair172.github.io/Docker-cheat-sheet/)
 
 Features
 --------
@@ -23,9 +24,12 @@ Features
 Usage
 -----
 
-Visit the live site at [https://ahsanzubair172.github.io/Docker-cheat-sheet/](https://ahsanzubair172.github.io/Docker-cheat-sheet/)Explore the interactive tables for quick reference.Click the "Download PNG" button to save the cheat sheet as an image.Clone or fork this repository to customize or contribute:**bash**Copy
+Visit the live site at [https://ahsanzubair172.github.io/Docker-cheat-sheet/](https://ahsanzubair172.github.io/Docker-cheat-sheet/)
+Explore the interactive tables for quick reference.Click the "Download PNG" button to save the cheat sheet as an image.
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   git clone https://github.com/ahsanzubair172/Docker-cheat-sheet.git   `
+# Clone or fork this repository to customize or contribute:
+**bash**
+`   git clone https://github.com/ahsanzubair172/Docker-cheat-sheet.git   `
 
 Installation
 ------------
